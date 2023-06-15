@@ -6,7 +6,7 @@ const nextConfig = {
         source: '/api/:path*',
         destination: 'http://localhost:4000/api/:path*',
       },
-    ];
+    ]
   },
   experimental: {
     serverActions: true,
@@ -21,4 +21,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig

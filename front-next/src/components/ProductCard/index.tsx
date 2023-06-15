@@ -1,44 +1,44 @@
-'use client';
-import Image from 'next/image';
-import Box from '../Box/Box';
-import Card from '../Card';
-import Typography from '../Typography';
-import { useState } from 'react';
-import clsx from 'clsx';
-import ColorThief from 'colorthief';
-import Badge from '../Badge';
-import CommentIcon from '@/icons/Comment';
-import { useRouter } from 'next/navigation';
+'use client'
+import Image from 'next/image'
+import Box from '../Box/Box'
+import Card from '../Card'
+import Typography from '../Typography'
+import { useState } from 'react'
+import clsx from 'clsx'
+import ColorThief from 'colorthief'
+import Badge from '../Badge'
+import CommentIcon from '@/icons/Comment'
+import { useRouter } from 'next/navigation'
 
 export interface ProductProps {
-  id: string;
-  name: string;
-  description: string;
-  bidCount: number;
-  commentsCount: number;
-  startPrice: number;
-  currentPrice: number;
-  status: 'STARTED' | 'ENDED';
-  type: 'NORMAL' | 'BLIND';
+  id: string
+  name: string
+  description: string
+  bidCount: number
+  commentsCount: number
+  startPrice: number
+  currentPrice: number
+  status: 'STARTED' | 'ENDED'
+  type: 'NORMAL' | 'BLIND'
   photos: {
-    id: string;
-    url: string;
-  }[];
+    id: string
+    url: string
+  }[]
 }
 
 interface ProdcutCardProps {
-  product: ProductProps;
+  product: ProductProps
 }
 
 export default function ProductCard({ product }: ProdcutCardProps) {
-  const [color, setColor] = useState<number[]>();
-  const router = useRouter();
+  const [color, setColor] = useState<number[]>()
+  const router = useRouter()
   return (
     <Card
       key={product.id}
       className="flex flex-col overflow-hidden border border-gray-100 group cursor-pointer"
       onClick={() => {
-        router.replace(`/${product.id}`);
+        router.replace(`/${product.id}`)
       }}
     >
       {product.bidCount > 10 && <Badge text="HOT" color="red" className="absolute left-2 top-2 z-10" />}
@@ -65,10 +65,10 @@ export default function ProductCard({ product }: ProdcutCardProps) {
           fill
           alt={`${product.name} image`}
           onLoad={() => {
-            const colorThief = new ColorThief();
-            const sourceImage = document.querySelector(`#image-${product.id}`);
-            const color = colorThief.getColor(sourceImage);
-            setColor(color);
+            const colorThief = new ColorThief()
+            const sourceImage = document.querySelector(`#image-${product.id}`)
+            const color = colorThief.getColor(sourceImage)
+            setColor(color)
           }}
           src={product.photos[0].url}
         />
@@ -84,5 +84,5 @@ export default function ProductCard({ product }: ProdcutCardProps) {
         </Box>
       </Box>
     </Card>
-  );
+  )
 }

@@ -43,6 +43,15 @@ func main() {
 	ch, err := conn.Channel()
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
+	_, err = ch.QueueDeclare(
+		"bids-queue", // name
+		false,        // durable
+		false,        // delete when unused
+		false,        // exclusive
+		false,        // no-wait
+		nil,          // arguments
+	)
+	failOnError(err, "Failed to create queue")
 	msgs, err := ch.Consume(
 		"bids-queue", // queue
 		"",           // consumer

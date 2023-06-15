@@ -1,6 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react'
 
-type BoxProps = HTMLAttributes<HTMLDivElement>;
+type BoxProps = HTMLAttributes<HTMLDivElement>
 export default function Box({ children, ...rest }: BoxProps) {
-  return <div {...rest}>{children}</div>;
+  return <div {...rest}>{children}</div>
 }

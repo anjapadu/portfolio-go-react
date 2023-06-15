@@ -1,16 +1,14 @@
-'use client';
+'use client'
 
-import { ProductProps } from '@/components/ProductCard';
-import { useProducts } from '@/hooks/useProducts';
-import React, { useEffect } from 'react';
-import { mutate } from 'swr';
+import { ProductProps } from '@/components/ProductCard'
+import React, { useEffect } from 'react'
+import { mutate } from 'swr'
 
 export default function Listener() {
-  const { setProducts } = useProducts();
   useEffect(() => {
-    const stream = new EventSource('http://localhost:4000/api/price-update');
+    const stream = new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/api/price-update`)
     stream.addEventListener('message', function (e) {
-      const [productId, jsonString] = e.data.split('|');
+      const [productId, jsonString] = e.data.split('|')
       mutate(
         '/products',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,18 +18,18 @@ export default function Listener() {
               return {
                 ...p,
                 ...JSON.parse(jsonString),
-              };
+              }
             } else {
-              return p;
+              return p
             }
-          });
+          })
         },
         false
-      );
-    });
+      )
+    })
     return () => {
-      stream.close();
-    };
-  }, [setProducts]);
-  return <React.Fragment />;
+      stream.close()
+    }
+  }, [])
+  return <React.Fragment />
 }

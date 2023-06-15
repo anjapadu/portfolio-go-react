@@ -1,17 +1,17 @@
-import { isLogged, logOut } from '@/actions/auth';
-import Navigation from './@Navigation/page';
-import './globals.css';
-import { Inter } from 'next/font/google';
-import { Providers } from './providers';
-import ProductList from './@ProductList/page';
-import ProductDetails from './@ProductDetails/page';
+import { isLogged, logOut } from '@/actions/auth'
+import Navigation from './@Navigation/page'
+import './globals.css'
+import { Inter } from 'next/font/google'
+import { Providers } from './providers'
+import ProductList from './@ProductList/page'
+import ProductDetails from './@ProductDetails/page'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [logged, authData, token] = await isLogged();
+  const [logged, authData, token] = await isLogged()
 
   if (!logged && token) {
-    logOut();
+    logOut()
   }
   return (
     <html lang="en">
@@ -26,5 +26,5 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </Providers>
       </body>
     </html>
-  );
+  )
 }

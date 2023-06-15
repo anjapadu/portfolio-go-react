@@ -1,26 +1,26 @@
-'use client';
-import clsx from 'clsx';
-import Button from '../Button';
-import Card from '../Card';
-import Input from '../Input';
-import { PropsWithChildren, useState } from 'react';
-import { XMarkIcon } from '@heroicons/react/24/solid';
-import { logIn } from '@/actions/auth';
-import { useAuth } from '@/providers/auth';
+'use client'
+import clsx from 'clsx'
+import Button from '../Button'
+import Card from '../Card'
+import Input from '../Input'
+import { PropsWithChildren, useState } from 'react'
+import { XMarkIcon } from '@heroicons/react/24/solid'
+import { logIn } from '@/actions/auth'
+import { useAuth } from '@/providers/auth'
 interface LoginButtonProps extends PropsWithChildren {
-  loginButtonText?: string;
+  loginButtonText?: string
 }
 export default function LoginButton({ children, loginButtonText = 'Log in' }: LoginButtonProps) {
-  const [show, setShow] = useState(false);
-  const { token } = useAuth();
-  const isLogged = !!token;
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [invalid, setInvalid] = useState(false);
-  const [loading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false)
+  const { token } = useAuth()
+  const isLogged = !!token
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
+  const [invalid, setInvalid] = useState(false)
+  const [loading, setIsLoading] = useState(false)
   const login = async () => {
-    setInvalid(false);
-    setIsLoading(true);
+    setInvalid(false)
+    setIsLoading(true)
     const response = await fetch('/api/log-in', {
       method: 'POST',
       body: JSON.stringify({
@@ -29,17 +29,17 @@ export default function LoginButton({ children, loginButtonText = 'Log in' }: Lo
       }),
     }).then((res) => {
       if (res.status === 401) {
-        setInvalid(true);
+        setInvalid(true)
       }
-      return res.json();
-    });
+      return res.json()
+    })
     if (response.token) {
-      logIn(response.token);
+      logIn(response.token)
     }
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
   if (isLogged && children) {
-    return children;
+    return children
   }
   return (
     <div className="flex justify-center flex-col z-10">
@@ -52,7 +52,7 @@ export default function LoginButton({ children, loginButtonText = 'Log in' }: Lo
           )}
         >
           <XMarkIcon className="w-5 h-5 absolute top-2 right-2 cursor-pointer" onClick={() => setShow(false)} />
-          <form className="flex flex-col pt-10 pb-5 p-5 w-80 gap-y-5">
+          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col pt-10 pb-5 p-5 w-80 gap-y-5">
             <Input disabled={loading} value={email} onChange={(e) => setEmail(e.target.value)} label="Email" />
             <Input
               disabled={loading}
@@ -61,11 +61,11 @@ export default function LoginButton({ children, loginButtonText = 'Log in' }: Lo
               label="Password"
               type="password"
             />
-            <Button isLoading={loading} text="Log in" color="green" onClick={login} />
+            <Button type="submit" isLoading={loading} text="Log in" color="green" onClick={login} />
             {invalid && <span className="text-red-500 text-xs font-bold">Username or password incorrect</span>}
           </form>
         </Card>
       </div>
     </div>
-  );
+  )
 }

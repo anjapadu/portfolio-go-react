@@ -1,8 +1,8 @@
-import { TextareaHTMLAttributes } from 'react';
-import Button from '../Button';
+import { TextareaHTMLAttributes } from 'react'
+import Button from '../Button'
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  onSubmit: () => void;
+  onSubmit: () => void
 }
 export default function TextArea({ id, onSubmit, disabled, ...rest }: TextAreaProps) {
   return (
@@ -43,5 +43,5 @@ export default function TextArea({ id, onSubmit, disabled, ...rest }: TextAreaPr
         </div>
       </div>
     </div>
-  );
+  )
 }

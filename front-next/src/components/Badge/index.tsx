@@ -1,13 +1,13 @@
-import clsx from 'clsx';
-import Box from '../Box/Box';
+import clsx from 'clsx'
+import Box from '../Box/Box'
 
-export type Colors = 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type Colors = 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink'
 
 interface BadgeProps {
-  color: Colors;
-  rounded?: boolean;
-  className?: string;
-  text: string;
+  color: Colors
+  rounded?: boolean
+  className?: string
+  text: string
 }
 
 const colorMap: { [key in Colors]: number[] } = {
@@ -19,7 +19,7 @@ const colorMap: { [key in Colors]: number[] } = {
   indigo: [100, 700],
   purple: [100, 700],
   pink: [100, 700],
-};
+}
 
 export default function Badge({ text, color, className, rounded }: BadgeProps) {
   return (
@@ -33,5 +33,5 @@ export default function Badge({ text, color, className, rounded }: BadgeProps) {
     >
       {text}
     </Box>
-  );
+  )
 }

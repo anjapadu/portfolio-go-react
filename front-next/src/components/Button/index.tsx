@@ -1,11 +1,11 @@
-import { ButtonHTMLAttributes } from 'react';
-import { Colors } from '../Badge';
-import clsx from 'clsx';
+import { ButtonHTMLAttributes } from 'react'
+import { Colors } from '../Badge'
+import clsx from 'clsx'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string;
-  color?: Colors;
-  isLoading?: boolean;
+  text: string
+  color?: Colors
+  isLoading?: boolean
 }
 
 export default function Button({ text, color = 'green', className, isLoading, ...rest }: ButtonProps) {
@@ -38,5 +38,5 @@ export default function Button({ text, color = 'green', className, isLoading, ..
         text
       )}
     </button>
-  );
+  )
 }

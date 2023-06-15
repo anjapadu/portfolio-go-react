@@ -1,47 +1,47 @@
-'use client';
-import { Fragment, useEffect, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigation';
-import useSWR from 'swr/immutable';
-import Box from '@/components/Box/Box';
-import Image from 'next/image';
-import { ProductProps } from '@/components/ProductCard';
-import Typography from '@/components/Typography';
-import clsx from 'clsx';
-import Button from '@/components/Button';
-import { useSnackbar } from 'react-simple-snackbar';
-import { useAuth } from '@/providers/auth';
-import LoginButton from '@/components/LoginButton';
-import TextArea from '@/components/TextArea';
-import Card from '@/components/Card';
-import { formatRelative } from 'date-fns';
-import { useEffectOnce } from 'usehooks-ts';
-import { ArrowUpIcon } from '@heroicons/react/20/solid';
+'use client'
+import { Fragment, useEffect, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { useRouter, useParams } from 'next/navigation'
+import useSWR from 'swr/immutable'
+import Box from '@/components/Box/Box'
+import Image from 'next/image'
+import { ProductProps } from '@/components/ProductCard'
+import Typography from '@/components/Typography'
+import clsx from 'clsx'
+import Button from '@/components/Button'
+import { useSnackbar } from 'react-simple-snackbar'
+import { useAuth } from '@/providers/auth'
+import LoginButton from '@/components/LoginButton'
+import TextArea from '@/components/TextArea'
+import Card from '@/components/Card'
+import { formatRelative } from 'date-fns'
+import { useEffectOnce } from 'usehooks-ts'
+import { ArrowUpIcon } from '@heroicons/react/20/solid'
 interface User {
-  firstName: string;
-  lastName: string;
+  firstName: string
+  lastName: string
 }
 interface Comment {
-  id: string;
-  user: User;
-  text: string;
-  createdAt: string;
-  isNew?: boolean;
+  id: string
+  user: User
+  text: string
+  createdAt: string
+  isNew?: boolean
 }
 interface CommentCardProps {
-  text: string;
-  name: string;
-  time: string;
-  isNew?: boolean;
+  text: string
+  name: string
+  time: string
+  isNew?: boolean
 }
 function CommentCard({ text, name, time, isNew }: CommentCardProps) {
-  const [showHighlight, setShowHighlight] = useState(isNew);
+  const [showHighlight, setShowHighlight] = useState(isNew)
   useEffectOnce(() => {
     setTimeout(() => {
-      setShowHighlight(false);
-    }, 2000);
-  });
+      setShowHighlight(false)
+    }, 2000)
+  })
   return (
     <Card
       className={clsx(
@@ -57,20 +57,20 @@ function CommentCard({ text, name, time, isNew }: CommentCardProps) {
       </Box>
       <Typography className="text-xs">{text}</Typography>
     </Card>
-  );
+  )
 }
 
 interface CommentsProps {
-  comments: Comment[];
+  comments: Comment[]
 }
 function Comments({ comments = [] }: CommentsProps) {
-  const { id, token } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const { productId } = useParams();
-  const [text, setText] = useState('');
+  const { id, token } = useAuth()
+  const [loading, setLoading] = useState(false)
+  const { productId } = useParams()
+  const [text, setText] = useState('')
 
   const onSubmit = async () => {
-    setLoading(true);
+    setLoading(true)
     await fetch('/api/comment', {
       method: 'POST',
       headers: {
@@ -82,11 +82,11 @@ function Comments({ comments = [] }: CommentsProps) {
         text: text,
       }),
     }).then((res) => {
-      return res.json();
-    });
-    setText('');
-    setLoading(false);
-  };
+      return res.json()
+    })
+    setText('')
+    setLoading(false)
+  }
   return (
     <Box className="flex flex-col-reverse sm:divide-x mt-5 sm:grid sm:grid-cols-2">
       <Box className="sm:pr-4 max-h-fit overflow-y-auto flex flex-col gap-y-4 pb-10 mt-4">
@@ -105,14 +105,14 @@ function Comments({ comments = [] }: CommentsProps) {
               name={`${comment.user.firstName} ${comment.user.lastName}`}
               time={comment.createdAt}
             />
-          );
+          )
         })}
       </Box>
       <Box className="sm:pl-4">
         <TextArea
           disabled={loading}
           onSubmit={() => {
-            onSubmit();
+            onSubmit()
           }}
           value={text}
           placeholder="Ask something to the seller"
@@ -120,31 +120,31 @@ function Comments({ comments = [] }: CommentsProps) {
         />
       </Box>
     </Box>
-  );
+  )
 }
 
 export default function ProductDetails() {
-  const { productId } = useParams();
-  const router = useRouter();
-  const { token, id: userId } = useAuth();
-  const [bidding] = useState();
+  const { productId } = useParams()
+  const router = useRouter()
+  const { token, id: userId } = useAuth()
+  const [bidding] = useState()
   const [openSnackbar] = useSnackbar({
     style: {
       zIndex: 100,
     },
-  });
-  const isOpen = !!productId;
+  })
+  const isOpen = !!productId
   const onClose = () => {
-    router.push('/');
-  };
+    router.push('/')
+  }
   const { data, isLoading, mutate } = useSWR<ProductProps>(
     `product/${productId}`,
     productId ? () => fetch(`/api/product/${productId}`).then((res) => res.json()) : null
-  );
+  )
   const { data: comments, mutate: mutateComments } = useSWR<Comment[]>(
     `product/${productId}/comments`,
     productId ? () => fetch(`/api/product/${productId}/comments`).then((res) => res.json()) : null
-  );
+  )
   const submitBid = (price: number) => {
     fetch(`/api/bid/${productId}`, {
       method: 'POST',
@@ -152,15 +152,15 @@ export default function ProductDetails() {
         Authorization: token!,
       },
       body: JSON.stringify({ newPrice: parseFloat(price.toFixed(2)) }),
-    });
-  };
+    })
+  }
   useEffect(() => {
-    if (!productId) return;
-    const stream = new EventSource(`http://localhost:4000/api/stream/product/${productId}`);
+    if (!productId) return
+    const stream = new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/api/stream/product/${productId}`)
     stream.addEventListener('message', function (e) {
-      const obj = JSON.parse(e.data.split('|')[1]);
+      const obj = JSON.parse(e.data.split('|')[1])
       if (obj.isComment) {
-        mutateComments((d) => [{ ...obj, isNew: true }, ...d!], false);
+        mutateComments((d) => [{ ...obj, isNew: true }, ...d!], false)
       } else {
         mutate(
           (d) => ({
@@ -169,19 +169,19 @@ export default function ProductDetails() {
             bidCount: obj.bidCount,
           }),
           false
-        );
+        )
         openSnackbar(
           obj.userId === userId
             ? 'You have submitted an offer for this product'
             : `A user has submitted a new ofer for ${obj.newPrice}`,
           10000
-        );
+        )
       }
-    });
+    })
     return () => {
-      stream.close();
-    };
-  }, [productId]); // eslint-disable-line react-hooks/exhaustive-deps
+      stream.close()
+    }
+  }, [productId]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => onClose && onClose()}>
@@ -308,5 +308,5 @@ export default function ProductDetails() {
         </div>
       </Dialog>
     </Transition.Root>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-'use client';
-import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import LoginButton from '@/components/LoginButton';
-import { logOut } from '@/actions/auth';
+'use client'
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import LoginButton from '@/components/LoginButton'
+import { logOut } from '@/actions/auth'
 
 export default function Navigation({ isLogged, name, email }: { isLogged: boolean; name?: string; email?: string }) {
   return (
@@ -139,5 +139,5 @@ export default function Navigation({ isLogged, name, email }: { isLogged: boolea
         </>
       )}
     </Disclosure>
-  );
+  )
 }

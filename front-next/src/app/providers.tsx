@@ -1,11 +1,11 @@
-'use client';
-import AuthProvider, { AuthContextType } from '@/providers/auth';
-import { PropsWithChildren } from 'react';
-import SnackbarProvider from 'react-simple-snackbar';
+'use client'
+import AuthProvider, { AuthContextType } from '@/providers/auth'
+import { PropsWithChildren } from 'react'
+import SnackbarProvider from 'react-simple-snackbar'
 
 interface ProvidersProps extends PropsWithChildren {
-  token?: string;
-  authData?: AuthContextType;
+  token?: string
+  authData?: AuthContextType
 }
 export function Providers({ children, token, authData }: ProvidersProps) {
   return (
@@ -14,5 +14,5 @@ export function Providers({ children, token, authData }: ProvidersProps) {
         {children}
       </AuthProvider>
     </SnackbarProvider>
-  );
+  )
 }
