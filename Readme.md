@@ -1,4 +1,4 @@
- ** This is a small portfolio project, there are a lot of things that could be done better I know but that will be done in a private repository :) 
+ ** This is a small portfolio project that I have started on Saturday (Today is wednesday) on my free time, there are a lot of things that could be done better I know but that will be done in a private repository :) 
 
 # What is this ? 
 
