@@ -1,3 +1,5 @@
+ ** This is a small portfolio project, there are a lot of things that could be done better I know but that will be done in a private repository :) 
+
 # What is this ? 
 
 Recently, I made the decision to create my portfolio, but I found myself uncertain about where to begin. However, I had a clear vision of what I wanted to showcase: my coding proficiency, aptitude for learning, and adaptability to various technological environments. With this objective in mind, I embarked on a search for ideas and even sought advice from ChatGPT. Many suggestions pointed towards an ecommerce project, which undeniably serves as an effective demonstration of one's abilities. However, I sought a challenge beyond the conventional path. Therefore, I decided to implement the core functionality of an ecommerce application with a unique twist—it functions as an auction house.
