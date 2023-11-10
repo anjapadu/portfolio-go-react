@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SVGProps } from 'react';
+import * as React from 'react'
+import { SVGProps } from 'react'
 const CommentIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg width={props.width || 50} height={props.height || 49.32} viewBox="0 0 50 49.32" {...props}>
     <defs>
@@ -27,5 +27,5 @@ const CommentIcon = (props: SVGProps<SVGSVGElement>) => (
       </g>
     </g>
   </svg>
-);
-export default CommentIcon;
+)
+export default CommentIcon

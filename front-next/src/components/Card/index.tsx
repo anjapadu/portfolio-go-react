@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import Box from '../Box/Box'
+import Box from '../Box'
 import clsx from 'clsx'
 
 interface CardProps extends PropsWithChildren {

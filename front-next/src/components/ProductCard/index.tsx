@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import Box from '../Box/Box'
+import Box from '../Box'
 import Card from '../Card'
 import Typography from '../Typography'
 import { useState } from 'react'
@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProdcutCardProps) {
       key={product.id}
       className="flex flex-col overflow-hidden border border-gray-100 group cursor-pointer"
       onClick={() => {
-        router.replace(`/${product.id}`)
+        router.replace(`/products/${product.id}`, { scroll: false })
       }}
     >
       {product.bidCount > 10 && <Badge text="HOT" color="red" className="absolute left-2 top-2 z-10" />}

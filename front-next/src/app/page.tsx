@@ -1,5 +1,5 @@
 'use client'
 import React from 'react'
-export default async function Home() {
+export default function ProductDetails() {
   return <React.Fragment />
 }

@@ -1,7 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-div[class^="Snackbar_snackbar-wrapper"] {
-  z-index: 1100;
-}

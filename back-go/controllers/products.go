@@ -7,9 +7,31 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
+
+	"github.com/google/uuid"
 
 	"github.com/gin-gonic/gin"
 )
+
+type ProductPhoto struct {
+	ID  uuid.UUID `json:"id"`
+	Url string    `json:"url"`
+}
+
+type APIProductAuction struct {
+	Name  string `json:"name"`
+	ID    string `json:"id"`
+	Photo string `json:"photo"`
+}
+
+func FindProductAuctionsSimple(context *gin.Context) {
+	search := context.Query("search")
+	var result []APIProductAuction
+	models.DB.Debug().Model(&models.ProductAuction{}).Select(`product_auctions.name, product_auctions.id, (SELECT url FROM product_photos pp WHERE  pp.product_auction_id = product_auctions.id LIMIT 1) AS photo`).Where("name ilike ?", fmt.Sprintf("%%%s%%", search)).Find(&result)
+	time.Sleep(750 * time.Millisecond)
+	context.JSON(http.StatusOK, result)
+}
 
 func FindProductAuctions(context *gin.Context) {
 	var products []models.ProductAuction

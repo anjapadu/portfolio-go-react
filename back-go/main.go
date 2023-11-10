@@ -21,6 +21,7 @@ func main() {
 		api.POST("/bid-accepted", controllers.BidAccepted(streamProductId, streamProducts))
 		api.GET("/price-update", HeadersMiddleware(), streamProducts.ServeHTTP("clientChan"), controllers.StreamProductsPriceUpdate)
 		api.GET("/stream/product/:id", HeadersMiddleware(), streamProductId.ServeHTTP("clientChan2"), controllers.StreamProductDataById)
+		api.GET("/products-simple", controllers.FindProductAuctionsSimple)
 		api.GET("/products", controllers.FindProductAuctions)
 		api.POST("/comment", middlewares.Auth("BUYER", "SELLER", "ADMIN"), controllers.CreateComment(streamProductId, streamProducts))
 		api.GET("/product/:id", controllers.FindProductById)

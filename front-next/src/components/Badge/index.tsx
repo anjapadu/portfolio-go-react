@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Box from '../Box/Box'
+import Box from '../Box'
 
 export type Colors = 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink'
 

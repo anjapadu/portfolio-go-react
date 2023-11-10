@@ -1,29 +1,27 @@
-import { isLogged, logOut } from '@/actions/auth'
-import Navigation from './@Navigation/page'
-import './globals.css'
-import { Inter } from 'next/font/google'
-import { Providers } from './providers'
-import ProductList from './@ProductList/page'
-import ProductDetails from './@ProductDetails/page'
+import { isLogged } from '@/actions/auth'
+import Navigation from '@/components/Navigation'
+import '../globals.css'
+export const metadata = {
+  title: 'Auction House',
+}
+import { Black_Ops_One } from 'next/font/google'
+import clsx from 'clsx'
 
-const inter = Inter({ subsets: ['latin'] })
+const blackOps = Black_Ops_One({
+  subsets: ['latin'],
+  weight: '400',
+})
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [logged, authData, token] = await isLogged()
+  const [logged, authData] = await isLogged()
 
-  if (!logged && token) {
-    logOut()
-  }
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Navigation isLogged={logged} name={authData?.fullName} email={authData?.email} />
-        <Providers token={token} authData={authData}>
-          <main className="flex min-h-screen flex-col items-center p-4 max-w-[1440px] mx-auto mt-5">
-            <ProductList />
-            <ProductDetails />
-            {children}
-          </main>
-        </Providers>
+        <div className="bg-lime-300 h-40 text-center max-w-[1440px] m-auto flex items-center justify-center mt-8">
+          <h1 className={clsx(blackOps.className, 'text-[60px]')}>BID TO WIN!</h1>
+        </div>
+        {children}
       </body>
     </html>
   )

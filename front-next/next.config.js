@@ -9,7 +9,7 @@ const nextConfig = {
     ]
   },
   experimental: {
-    serverActions: true,
+    serverActions: { allowedOrigins: ['*'] },
   },
   images: {
     remotePatterns: [
@@ -19,6 +19,6 @@ const nextConfig = {
       },
     ],
   },
-};
+}
 
 module.exports = nextConfig
